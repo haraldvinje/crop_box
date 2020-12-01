@@ -26,15 +26,18 @@ def crop_PIL_image_to_bounding_box(filename):
 
 
 def save_PIL_to_file(PIL_image, filename):
-    file_exists = Path(filename)
-    new_filename = filename
+    directory = "output"
+    filepath, extension = filename.split('.')
+    name = filepath.split("/")[-1]
+    output_file = directory + "/" + name + "." + extension
+    path = Path(directory)
+    path.mkdir(parents=True, exist_ok=True)
+    file_exists = Path(output_file)
     if file_exists.is_file():
-        name, extension = new_filename.split('.')
-        new_filename = name + str(uuid.uuid4()) + "." + extension
-    PIL_image.save(new_filename)
+        output_file = directory + "/" + name + str(uuid.uuid4()) + "." + extension
+    PIL_image.save(output_file)
 
 if __name__=='__main__':
     filename = argv[1]
     cropped_image = crop_PIL_image_to_bounding_box(filename)
-    filename_cropped = "cropped_" + filename
-    save_PIL_to_file(cropped_image, filename_cropped)
+    save_PIL_to_file(cropped_image, filename)
