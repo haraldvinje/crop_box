@@ -6,7 +6,7 @@ Original picture of a cat in from `media/cat.jpg`
 ![Cat](https://github.com/haraldvinje/crop_box/blob/main/media/cat.jpg?raw=true)
 `python crop_image_object.py media/cat.jpg` 
 
-saves a new file in `out/cropped_cat.jpg`
+saves a new file in `output/cropped_cat.jpg`
 ![Cropped cat](https://github.com/haraldvinje/crop_box/blob/main/output/cat.jpg?raw=true)
 
 ## Disclaimer

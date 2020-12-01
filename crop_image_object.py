@@ -43,8 +43,6 @@ def crop_image(image, x0, y0, x1, y1):
             raise Exception("Unknown picture format. Accepts PIL or Numpy arrays")
 
 
-
-
 def crop_numpy_image_to_bounding_box(numpy_image):
     bounding_box = get_bounding_box_of_numpy_image(numpy_image)
     x0, y0, x1, y1 = get_picture_coordinates(bounding_box, numpy_image)
