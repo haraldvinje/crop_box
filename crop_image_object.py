@@ -1,4 +1,4 @@
-from lib.aws_rekognition.rekognition_image_detection import get_bouding_box_of_object
+from lib.aws_rekognition.rekognition_image_detection import get_bounding_box_of_object
 from PIL import Image
 from pathlib import Path
 import uuid

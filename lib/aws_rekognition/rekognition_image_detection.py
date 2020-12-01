@@ -302,7 +302,7 @@ def usage_demo():
     print('-'*88)
 
 
-def get_bouding_box_of_object(image_file_name="fish.jpg",
+def get_bounding_box_of_object(image_file_name="fish.jpg",
         rekognition_client=boto3.client('rekognition')):
     """
     Detects object in image, if any, and returns the bounding box coordinates.
