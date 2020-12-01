@@ -4,11 +4,13 @@ from pathlib import Path
 import uuid
 from sys import argv
 
+def crop_numpy_image_to_bounding_box(numpy_image):
+    pass
 
 def crop_PIL_image_to_bounding_box(filename):
     image = Image.open(filename)
 
-    bounding_box = get_bouding_box_of_object(image_file_name=filename)
+    bounding_box = get_bounding_box_of_object(image_file_name=filename)
     left = bounding_box['Left']
     top = bounding_box['Top']
     height = bounding_box['Height']
