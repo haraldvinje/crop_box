@@ -17,6 +17,7 @@ from pprint import pprint
 import boto3
 from botocore.exceptions import ClientError
 import requests
+import cv2
 
 from lib.aws_rekognition.rekognition_objects import (
     RekognitionFace, RekognitionCelebrity, RekognitionLabel,
@@ -60,6 +61,25 @@ class RekognitionImage:
         with open(image_file_name, 'rb') as img_file:
             image = {'Bytes': img_file.read()}
         name = image_file_name if image_name is None else image_name
+        return cls(image, name, rekognition_client)
+    
+    @classmethod
+    def from_numpy_image(cls, numpy_image, rekognition_client, image_name=None):
+        """
+        Creates a RekognitionImage object from a local file.
+
+        :param image_file_name: The file name of the image. The file is opened and its
+                                bytes are read.
+        :param rekognition_client: A Boto3 Rekognition client.
+        :param image_name: The name of the image. If this is not specified, the
+                           file name is used as the image name.
+        :return: The RekognitionImage object, initialized with image bytes from the
+                 file.
+        """
+
+        _, encoded_image = cv2.imencode('.jpg', numpy_image)
+        image = {'Bytes': encoded_image.tobytes()}
+        name = "default" if image_name is None else image_name
         return cls(image, name, rekognition_client)
 
     @classmethod
@@ -324,6 +344,27 @@ def get_bounding_box_of_object(image_file_name="fish.jpg",
     except:
         raise Exception("No bounding box detected")
 
+def get_bounding_box_of_numpy_image(numpy_image,
+        rekognition_client=boto3.client('rekognition')):
+    """
+    Detects object in image, if any, and returns the bounding box coordinates.
+
+    :param image_file_name: Path of local file
+    :param rekognition_client: A Boto3 Rekognition client.
+
+    :return: A bounding box dictionary
+    """
+    fish_image_rekognition = RekognitionImage.from_numpy_image(
+        numpy_image, rekognition_client)
+    labels = fish_image_rekognition.detect_labels(10)
+    try:
+        bounding_box_object = map(lambda label: label.instances[0]['BoundingBox'], filter(lambda label: len(label.instances)>=1, labels))
+        bounding_boxes = list(bounding_box_object)
+        if len(bounding_boxes)>1:
+            raise Exception("More than one bounding box detected")
+        return bounding_boxes[0]
+    except:
+        raise Exception("No bounding box detected")
 
 
 if __name__ == '__main__':
