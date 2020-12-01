@@ -71,7 +71,7 @@ def save_PIL_to_file(PIL_image, filename):
     PIL_image.save(output_file)
 
 if __name__=='__main__':
-    filename = "media/cat.jpg"
+    filename = argv[1]
 
     #Numpy example
     numpy_image = cv2.imread(filename)
