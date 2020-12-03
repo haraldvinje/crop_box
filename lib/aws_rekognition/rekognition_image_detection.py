@@ -62,7 +62,7 @@ class RekognitionImage:
             image = {'Bytes': img_file.read()}
         name = image_file_name if image_name is None else image_name
         return cls(image, name, rekognition_client)
-    
+
     @classmethod
     def from_numpy_image(cls, numpy_image, rekognition_client, image_name=None):
         """
@@ -322,8 +322,8 @@ def usage_demo():
     print('-'*88)
 
 
-def get_bounding_box_of_object(image_file_name="fish.jpg",
-        rekognition_client=boto3.client('rekognition')):
+def get_bounding_box_of_object(image_file_name,
+                               rekognition_client=boto3.client('rekognition')):
     """
     Detects object in image, if any, and returns the bounding box coordinates.
 
@@ -332,20 +332,22 @@ def get_bounding_box_of_object(image_file_name="fish.jpg",
 
     :return: A bounding box dictionary
     """
-    fish_image_rekognition = RekognitionImage.from_file(
+    image_rekognition = RekognitionImage.from_file(
         image_file_name, rekognition_client)
-    labels = fish_image_rekognition.detect_labels(10)
+    labels = image_rekognition.detect_labels(10)
     try:
-        bounding_box_object = map(lambda label: label.instances[0]['BoundingBox'], filter(lambda label: len(label.instances)>=1, labels))
+        bounding_box_object = map(lambda label: label.instances[0]['BoundingBox'], filter(
+            lambda label: len(label.instances) >= 1, labels))
         bounding_boxes = list(bounding_box_object)
-        if len(bounding_boxes)>1:
+        if len(bounding_boxes) > 1:
             raise Exception("More than one bounding box detected")
         return bounding_boxes[0]
     except:
         raise Exception("No bounding box detected")
 
+
 def get_bounding_box_of_numpy_image(numpy_image,
-        rekognition_client=boto3.client('rekognition')):
+                                    rekognition_client=boto3.client('rekognition')):
     """
     Detects object in image, if any, and returns the bounding box coordinates.
 
@@ -354,13 +356,14 @@ def get_bounding_box_of_numpy_image(numpy_image,
 
     :return: A bounding box dictionary
     """
-    fish_image_rekognition = RekognitionImage.from_numpy_image(
+    image_rekognition = RekognitionImage.from_numpy_image(
         numpy_image, rekognition_client)
-    labels = fish_image_rekognition.detect_labels(10)
+    labels = image_rekognition.detect_labels(10)
     try:
-        bounding_box_object = map(lambda label: label.instances[0]['BoundingBox'], filter(lambda label: len(label.instances)>=1, labels))
+        bounding_box_object = map(lambda label: label.instances[0]['BoundingBox'], filter(
+            lambda label: len(label.instances) >= 1, labels))
         bounding_boxes = list(bounding_box_object)
-        if len(bounding_boxes)>1:
+        if len(bounding_boxes) > 1:
             raise Exception("More than one bounding box detected")
         return bounding_boxes[0]
     except:
