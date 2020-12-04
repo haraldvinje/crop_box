@@ -351,7 +351,7 @@ def get_bounding_box_of_numpy_image(numpy_image,
     """
     Detects object in image, if any, and returns the bounding box coordinates.
 
-    :param image_file_name: Path of local file
+    :param image_file_name: numpy array representation of an image
     :param rekognition_client: A Boto3 Rekognition client.
 
     :return: A bounding box dictionary
