@@ -13,8 +13,8 @@ def get_picture_coordinates(bounding_box, image):
         image_width, image_height = input_image.size
     elif isinstance(image, np.ndarray):
         input_image = image
-        image_width = input_image.shape[0]
-        image_height = input_image.shape[1]
+        image_height = input_image.shape[0]
+        image_width = input_image.shape[1]
     else:
         input_image = image
         image_width, image_height = input_image.size
@@ -37,7 +37,7 @@ def crop_image(image, x0, y0, x1, y1):
         return Image.open(image).crop((x0, y0, x1, y1))
     elif isinstance(image, np.ndarray):
         x0, y0, x1, y1 = int(x0), int(y0), int(x1), int(y1)
-        return image[x0:x1, y0:y1]
+        return image[y0:(y1+1), x0:(x1+1)]
     else:
         try:
             return image.crop((x0, y0, x1, y1))
