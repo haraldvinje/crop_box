@@ -13,8 +13,8 @@ def get_picture_coordinates(bounding_box, image):
         image_width, image_height = input_image.size
     elif isinstance(image, np.ndarray):
         input_image = image
-        image_height = input_image.shape[0]
-        image_width = input_image.shape[1]
+        image_width = input_image.shape[0]
+        image_height = input_image.shape[1]
     else:
         input_image = image
         image_width, image_height = input_image.size
@@ -89,4 +89,3 @@ if __name__ == '__main__':
     # Image file example
     cropped_image = crop_PIL_image_to_bounding_box(filename)
     save_PIL_to_file(cropped_image, filename)
-
