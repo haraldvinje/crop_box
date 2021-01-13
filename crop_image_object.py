@@ -85,6 +85,7 @@ if __name__ == '__main__':
     # Numpy example
     numpy_image = cv2.imread(filename)
     cropped_numpy = crop_numpy_image_to_bounding_box(numpy_image)
+    cv2.imwrite("filename.jpg", cropped_numpy)
 
     # Image file example
     cropped_image = crop_PIL_image_to_bounding_box(filename)
