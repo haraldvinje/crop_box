@@ -1,6 +1,15 @@
 # Crop box
 Tool for detecting bounding box and cropping picture to remove unecessary parts of an image. Could for example be used as an image transformation in a CNN.
 
+## Setup
+
+```
+git clone git@github.com:haraldvinje/crop_box.git
+cd crop_box
+python -m venv venv
+pip install -r requirements.txt
+```
+
 ## Example
 Original picture of a cat in from `media/cat.jpg`
 ![Cat](https://github.com/haraldvinje/crop_box/blob/main/media/cat.jpg?raw=true)
